@@ -1,0 +1,57 @@
+def possible_value(count):
+    value = input()
+    if value not in ['1', '2', '3']:
+        print("Possible values: '1', '2' or '3'")
+        return possible_value(count)
+    elif int(value) > count:
+        print("Too many pencils were taken")
+        return possible_value(count)
+    else:
+        return int(value)
+def print_pencils(count):
+    print("|" * count)
+
+
+def play_game():
+    pencil_count = input("How many pencils would you like to use:\n")
+    while True:
+        try:
+            pencil_count = int(pencil_count)
+            if pencil_count > 0 and (pencil_count == abs(pencil_count)):
+                break
+            elif pencil_count == 0:
+                print("The number of pencils should be positive")
+                pencil_count = input()
+            else:
+                raise ValueError
+        except ValueError:
+            print("The number of pencils should be numeric")
+            pencil_count = input()
+
+    player1 = input("Who will be the first (John, Jack):\n")
+    while True:
+        if (player1 != 'John') and (player1 != 'Jack'):
+            player1 = input("Choose between 'John' and 'Jack'\n")
+        else:
+            break
+    player2 = "Jack" if player1 == "John" else "John"
+
+    while True:
+        print_pencils(pencil_count)
+        print(f"{player1}'s turn:")
+        player1_pencils = possible_value(pencil_count)
+        pencil_count -= player1_pencils
+        if pencil_count <= 0:
+            print(f'{player2} won!')
+            break
+
+        print_pencils(pencil_count)
+        print(f"{player2}'s turn:")
+        player2_pencils = possible_value(pencil_count)
+        pencil_count -= player2_pencils
+        if pencil_count <= 0:
+            print(f'{player1} won!')
+            break
+
+
+play_game()
