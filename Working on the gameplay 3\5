@@ -1,0 +1,24 @@
+def print_pencils(count):
+    print("|" * count)
+
+
+def play_game():
+    pencil_count = int(input("How many pencils would you like to use:\n"))
+    player1 = input("Who will be the first (John, Jack):\n")
+    player2 = "Jack" if player1 == "John" else "John"
+
+    while pencil_count > 0:
+        print_pencils(pencil_count)
+        print(f"{player1}'s turn:")
+        player1_pencils = int(input())
+        pencil_count -= player1_pencils
+        if pencil_count <= 0:
+            break
+
+        print_pencils(pencil_count)
+        print(f"{player2}'s turn:")
+        player2_pencils = int(input(""))
+        pencil_count -= player2_pencils
+
+
+play_game()
