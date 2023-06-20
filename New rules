@@ -1,0 +1,12 @@
+def pencil_painter(number):
+    return '|' * number
+
+number_of_pencils = int(input("How many pencils would you like to use:\n"))
+choice = input("Who will be the first (John, Jack):\n")
+
+if choice == 'John':
+    print(pencil_painter(number_of_pencils), 'John is going first!', sep='\n')
+elif choice == 'Jack':
+    print(pencil_painter(number_of_pencils), 'Jack is going first!', sep='\n')
+else:
+    print('You entered an incorrect name.')
