@@ -1,0 +1,80 @@
+from random import randint
+
+def bot_logic(count):
+    if count == 1:
+        bot_pencils = 1
+    elif count % 4 == 0:
+        bot_pencils = 3
+    elif count % 2 == 0:
+        bot_pencils = 1
+    elif count % 4 == 1:
+        bot_pencils = randint(1,3)
+    elif count % 2 == 1:
+        bot_pencils = 2
+
+    return bot_pencils
+def possible_value(count):
+    value = input()
+    if value not in ['1', '2', '3']:
+        print("Possible values: '1', '2' or '3'")
+        return possible_value(count)
+    elif int(value) > count:
+        print("Too many pencils were taken")
+        return possible_value(count)
+    else:
+        return int(value)
+def print_pencils(count):
+    print("|" * count)
+
+
+def play_game():
+    pencil_count = input("How many pencils would you like to use:\n")
+    while True:
+        try:
+            pencil_count = int(pencil_count)
+            if pencil_count > 0 and (pencil_count == abs(pencil_count)):
+                break
+            elif pencil_count == 0:
+                print("The number of pencils should be positive")
+                pencil_count = input()
+            else:
+                raise ValueError
+        except ValueError:
+            print("The number of pencils should be numeric")
+            pencil_count = input()
+
+    player1 = input("Who will be the first (John, Jack):\n")
+    while True:
+        if (player1 != 'John') and (player1 != 'Jack'):
+            player1 = input("Choose between 'John' and 'Jack'\n")
+        else:
+            break
+    player2 = "Jack" if player1 == "John" else "John"
+
+    while True:
+        print_pencils(pencil_count)
+        print(f"{player1}'s turn:")
+        if player1 == 'Jack':
+            player1_pencils = bot_logic(pencil_count)
+            print(player1_pencils)
+        else:
+            player1_pencils = possible_value(pencil_count)
+        pencil_count -= player1_pencils
+        if pencil_count <= 0:
+            print(f'{player2} won!')
+            break
+
+        print_pencils(pencil_count)
+        print(f"{player2}'s turn:")
+        if player2 == 'Jack':
+            player2_pencils = bot_logic(pencil_count)
+            print(player2_pencils)
+        else:
+            player2_pencils = possible_value(pencil_count)
+        pencil_count -= player2_pencils
+        if pencil_count <= 0:
+            print(f'{player1} won!')
+            break
+
+
+play_game()
